@@ -100,8 +100,18 @@ class Settings:
     def jwt_private_key(self) -> str:
         return self.__jwt_private_key
 
+    @property
+    def secret_key(self) -> str:
+        return self.__secret_key
+
+    @property
+    def encrypt_key(self) -> str:
+        return self.__encrypt_key
+
     def __init__(self) -> None:
         load_dotenv()
+        self.__encrypt_key = os.environ.get('ENCRYPT_KEY')
+        self.__secret_key = os.environ.get('SECRET_KEY')
         self.__srv_port = os.environ.get('SVC_PORT')
         self.__project_name = os.environ.get('PROJECT_NAME')
         self.__jwt_algorithm = os.environ.get('JWT_ALGORITHM')

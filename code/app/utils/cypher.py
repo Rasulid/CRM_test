@@ -9,7 +9,7 @@ from core.config import settings
 
 
 class CypherPassword:
-    password = settings.SECRET_KEY
+    password = settings.secret_key
     key = None
 
     @staticmethod
@@ -17,7 +17,7 @@ class CypherPassword:
         password_provided = password
         password = password_provided.encode()
 
-        salt = settings.ENCRYPT_KEY.encode()
+        salt = settings.encrypt_key.encode()
 
         kdf = PBKDF2HMAC(algorithm=hashes.SHA256(),
                          length=32,
