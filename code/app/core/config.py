@@ -115,3 +115,5 @@ class Settings:
 
 
 settings = Settings()
+
+DATABASE_URI = f"postgresql://{settings.database_user_name}:{settings.database_pass}@{settings.database_host}:{settings.database_port}/{settings.database_name}"
