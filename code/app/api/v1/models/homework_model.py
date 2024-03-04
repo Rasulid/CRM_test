@@ -115,7 +115,7 @@ class HomeworkMessage(BaseModel):
 
 
 class HomeworkMedia(BaseModel):
-    media_id = db.Column(UUID, db.ForeignKey('media.id', ondelete="CASCADE"), nullable=False)
+    # media_id = db.Column(UUID, db.ForeignKey('media.id', ondelete="CASCADE"), nullable=False)
     homework_message_id = db.Column(UUID, db.ForeignKey('homework_message.id', ondelete="CASCADE"), nullable=False)
     sort = db.Column(db.Integer, default=1)
 

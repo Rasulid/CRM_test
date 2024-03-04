@@ -92,7 +92,7 @@ def profession_before_insert_event(mapper, connect, target):
 
 class ProfessionTranslation(BaseCourseTranslationModel):
     profession_id = db.Column(db.Integer, db.ForeignKey('profession.id', ondelete='CASCADE'), nullable=False)
-    # profession = relationship(Profession, back_populates="translations")
+    profession = relationship(Profession, back_populates="translations")
 
     __table_args__ = (
         db.UniqueConstraint('profession_id', 'language_id'),
@@ -171,7 +171,7 @@ class Course(BaseCourseModel):
     discount_id = db.Column(db.ForeignKey("discount.id"))
     duration = db.Column(db.Integer)
     telegram_url = db.Column(URLType)
-    course_old_id = db.Column(db.Integer)  # Vaqtincha
+    # course_old_id = db.Column(db.Integer)  # Vaqtincha
     language_id = db.Column(db.ForeignKey("language.id", ondelete="SET NULL"), nullable=False)
 
     categories = relationship("Category", secondary='link_category_course', back_populates='courses', )
@@ -258,7 +258,6 @@ class CourseTranslation(BaseCourseTranslationModel):
     __table_args__ = (
         db.UniqueConstraint('course_id', 'language_id'),
     )
-
 
 class LinkCategoryCourse(BaseModel):
     category_id = db.Column(db.Integer, db.ForeignKey("category.id"), nullable=False)
