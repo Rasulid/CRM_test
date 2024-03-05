@@ -16,8 +16,8 @@ def camel_to_snake_case(name: str) -> str:
 
 class BaseModel(object):
     @declared_attr
-    def __tablename__(cls):
-        return camel_to_snake_case(cls.__name__)
+    def __tablename__(self):
+        return camel_to_snake_case(self.__name__)
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     created_at = db.Column('created_at', db.DateTime, default=datetime.datetime.utcnow)
@@ -27,7 +27,6 @@ class BaseModel(object):
 
 # Base = declarative_base()
 BaseModel = declarative_base(cls=BaseModel)
-
 
 # event.listen(async_engine, "handle_error", handler)
 # @db.event.listens_for(db.orm.Mapper, 'refresh', named=True)

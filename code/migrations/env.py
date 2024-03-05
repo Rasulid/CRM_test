@@ -10,8 +10,8 @@ from app.core.config import DATABASE_URI
 
 sys.path.append(str(pathlib.Path(__file__).resolve().parents[1]))
 
-# from api.v1.models.base_model import BaseModel
 from api.v1.models.base_model import BaseModel
+
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config

@@ -14,6 +14,8 @@ from sqlalchemy_utils import URLType
 from api.v1.exceptions import CustomValidationError
 from core.babel_config import _
 from .base_model import BaseModel, base_validate_positive
+from .media_model import Media
+from .payment_model import Discount
 
 
 class BaseCourseModel(BaseModel):
@@ -122,7 +124,7 @@ class TopicTranslation(BaseCourseTranslationModel):
 
 class Category(BaseCourseModel):
     topic_id = db.Column(db.Integer, db.ForeignKey("topic.id"), nullable=False)
-    logo_id = db.Column(UUID, db.ForeignKey("media.id"))
+    logo_id = db.Column(UUID, db.ForeignKey(Media.id))
 
     courses = relationship("Course", secondary='link_category_course', back_populates='categories',
                            cascade="all, delete")
@@ -168,7 +170,7 @@ class Course(BaseCourseModel):
     is_verified = db.Column(db.Boolean, default=False)
     is_for_child = db.Column(db.Boolean, default=False)
     level = db.Column(Enum(DifficultyLevelEnum), default=DifficultyLevelEnum.BEGINNER)
-    discount_id = db.Column(db.ForeignKey("discount.id"))
+    discount_id = db.Column(db.ForeignKey(Discount.id))
     duration = db.Column(db.Integer)
     telegram_url = db.Column(URLType)
     # course_old_id = db.Column(db.Integer)  # Vaqtincha
@@ -258,6 +260,7 @@ class CourseTranslation(BaseCourseTranslationModel):
     __table_args__ = (
         db.UniqueConstraint('course_id', 'language_id'),
     )
+
 
 class LinkCategoryCourse(BaseModel):
     category_id = db.Column(db.Integer, db.ForeignKey("category.id"), nullable=False)
